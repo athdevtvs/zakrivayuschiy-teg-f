@@ -17,10 +17,14 @@
 .page {
   color: var(--accent-color);
   font-family: var(--main-font), Inter, sans-serif;
-  background: repeating-linear-gradient(90deg, transparent 0 2px, var(--linear-gradient-grid-color) 2px 4px),
-    repeating-linear-gradient(0deg, transparent 0 2px, var(--linear-gradient-grid-color) 2px 4px),
-    linear-gradient(180deg, var(--linear-gradient-start-color) 0 0.01%, var(--linear-gradient-end-color));
-  background-color: var(--bg-color);
+  background: repeating-linear-gradient(90deg, transparent 0 2px, var(--linear-gradient-grid-color, #d3d3d3) 2px 4px),
+    repeating-linear-gradient(0deg, transparent 0 2px, var(--linear-gradient-grid-color, #d3d3d3) 2px 4px),
+    linear-gradient(
+      180deg,
+      var(--linear-gradient-start-color, #e7e7e7) 0 0.01%,
+      var(--linear-gradient-end-color, #1a1a1a)
+    );
+  background-color: var(--bg-color, #fff);
   background-size: cover;
   background-attachment: fixed;
   min-inline-size: 375px;
@@ -28,14 +32,11 @@
 }
 
 .header {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr min-content 1fr;
-  grid-template-areas:
-    '.'
-    'header'
-    '.';
-  min-block-size: 78.9vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: auto;
+  margin-block: 100px;
 }
 
 .header__title {
@@ -43,14 +44,13 @@
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, min-content);
   justify-items: center;
-  grid-area: header;
   align-content: center;
-  border: 2px solid var(--accent-color);
+  border: 2px solid var(--accent-color, #000);
   padding-block: clamp(7.5rem, 6.3318rem + 4.9844vw, 8.5rem) 23px;
-  color: var(--accent-color);
-  font-family: var(--accent-font), sans-serif;
+  color: var(--accent-color, #000);
+  font-family: var(--accent-font), fantasy;
   text-transform: uppercase;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color, #fff);
   inline-size: 100%;
 }
 
@@ -73,7 +73,7 @@
 .theme-menu__button {
   display: inline-block;
   padding-bottom: 2px;
-  color: var(--accent-color);
+  color: var(--accent-color, #000);
   font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
@@ -95,9 +95,11 @@
 
 .theme-menu__button:hover {
   opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
 
 .theme-menu__button:focus-visible {
+  opacity: 0.6;
   background-size: 100% 2px;
 }
 
@@ -112,15 +114,15 @@
 
 .button {
   position: relative;
-  border: 2px solid var(--accent-color);
+  border: 2px solid var(--accent-color, #000);
   overflow: hidden;
-  font-family: var(--accent-font), sans-serif;
+  font-family: var(--accent-font), fantasy;
   cursor: pointer;
 }
 
 .button__text {
   z-index: 1;
-  color: var(--inversed-color);
+  color: var(--inversed-color, #fff);
   font-size: 14px;
   line-height: 90%;
   mix-blend-mode: difference;
@@ -131,8 +133,10 @@
   min-block-size: 38px;
 }
 
-.like__button:focus-visible {
-  box-shadow: var(--accent-color) 2px 2px 0;
+.like__button:focus-visible,
+.save__button:focus-visible,
+.dialog__button:focus-visible {
+  box-shadow: var(--accent-color, #000) 2px 2px 0;
   transition: box-shadow 0.3s ease;
 }
 
@@ -143,7 +147,7 @@
   position: absolute;
   inset: 0;
   display: block;
-  background-color: var(--accent-color);
+  background-color: var(--accent-color, #000);
   transition: transform 0.5s ease-in-out;
   transform: translateX(-100%);
   inline-size: 100%;
@@ -174,7 +178,7 @@
 }
 
 .card__icon-button:focus-visible {
-  border-color: var(--accent-color);
+  border-color: var(--accent-color, #000);
   transition: border 0.3s ease;
 }
 
@@ -188,13 +192,13 @@
 }
 
 .card__content {
-  border-inline: 2px solid var(--accent-color);
-  border-block-start: 2px solid var(--accent-color);
-  background-color: var(--bg-color);
+  border-inline: 2px solid var(--accent-color, #000);
+  border-block-start: 2px solid var(--accent-color, #000);
+  background-color: var(--bg-color, #fff);
 }
 
 .card__content:last-child {
-  border-block-end: 2px solid var(--accent-color);
+  border-block-end: 2px solid var(--accent-color, #000);
 }
 
 .card {
@@ -243,29 +247,30 @@
 
 .card__label {
   opacity: 0.5;
-  font-family: var(--accent-font), sans-serif;
+  font-family: var(--accent-font), fantasy;
   font-weight: 400;
   font-size: 14px;
   text-transform: none;
-  text-shadow: var(--bg-color) 1px 0 0, var(--bg-color) 0 1px 0, var(--bg-color) -1px 0 0, var(--bg-color) 0 -1px 0,
-    var(--bg-color) 1px -1px 0, var(--bg-color) -1px 1px 0, var(--bg-color) 1px 1px 0, var(--bg-color) -1px -1px 0;
+  text-shadow: var(--bg-color, #fff) 1px 0 0, var(--bg-color, #fff) 0 1px 0, var(--bg-color, #fff) -1px 0 0,
+    var(--bg-color, #fff) 0 -1px 0, var(--bg-color, #fff) 1px -1px 0, var(--bg-color, #fff) -1px 1px 0,
+    var(--bg-color, #fff) 1px 1px 0, var(--bg-color, #fff) -1px -1px 0;
   mix-blend-mode: hard-light;
 }
 
-.card__figure {
+.card__container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  border-inline: 2px solid var(--accent-color);
-  border-block-start: 2px solid var(--accent-color);
-  background-color: var(--bg-color);
+  border-inline: 2px solid var(--accent-color, #000);
+  border-block-start: 2px solid var(--accent-color, #000);
+  background-color: var(--bg-color, #fff);
 }
 
 .card__picture-label {
   position: absolute;
   max-width: min-content;
-  padding-inline-end: 25px;
-  padding-block-start: 25px;
+  padding-inline-end: 11px;
+  padding-block-start: 23px;
   white-space: nowrap;
 }
 
@@ -284,33 +289,33 @@
   gap: 9px;
   margin-block: 50px 100px;
   padding-block: 15px;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color, #fff);
   min-inline-size: clamp(19.25rem, 16.9866rem + 9.6573vw, 21.1875rem);
   min-block-size: 55px;
 }
 
 .floppy {
-  color: var(--inversed-color);
+  color: var(--inversed-color, #fff);
   inline-size: 28px;
   block-size: 28px;
   mix-blend-mode: difference;
 }
 
-.dialog-container .floppy {
+.dialog[open] .dialog-container .floppy {
   min-width: 39px;
   height: 39px;
 }
 
-.dialog {
-  border: 2px solid var(--accent-color);
+.dialog[open] {
+  border: 2px solid var(--accent-color, #000);
   padding-inline: 31px;
   padding-block: 29px;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color, #fff);
   inline-size: clamp(21.31rem, 20.958rem + 1.502vw, 22.31rem);
   block-size: 193px;
 }
 
-.dialog-container {
+.dialog[open] .dialog-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -318,21 +323,21 @@
   margin-block-end: 30px;
 }
 
-.dialog__text {
-  color: var(--accent-color);
-  font-family: var(--accent-font, 'sans-serif');
+.dialog[open] .dialog__text {
+  color: var(--accent-color, #000);
+  font-family: var(--accent-font), fantasy;
   font-size: 14px;
   line-height: 150%;
   text-transform: uppercase;
 }
 
-.dialog__button {
+.dialog[open] .dialog__button {
   text-transform: uppercase;
   inline-size: 100%;
   block-size: 38px;
 }
 
-.dialog::backdrop {
+.dialog[open]::backdrop {
   opacity: 0.7;
   background-color: #000;
 }
@@ -366,26 +371,26 @@
 }
 
 .card__picture-eighth {
-  filter: drop-shadow(0 0 0.75rem var(--picture-accent-color));
+  filter: drop-shadow(0 0 0.75rem var(--picture-accent-color, #000));
 }
 
 @supports (font-variation-settings: normal) {
   .page {
     font-family: var(--main-font), Inter, sans-serif;
-    font-variation-settings: 'wght' var(--card-text-weight);
+    font-variation-settings: 'wght' var(--card-text-weight, 400);
   }
 
   .card__heading {
     font-family: var(--main-font), Inter, sans-serif;
-    font-variation-settings: 'WGHT' var(--card-title-weight);
+    font-variation-settings: 'WGHT' var(--card-title-weight, 700);
   }
 }
 
-@supports ((text-stroke: 0.5px var(--bg-color)) or (-webkit-text-stroke: 0.5px var(--bg-color))) {
+@supports ((text-stroke: 0.5px var(--bg-color, #fff)) or (-webkit-text-stroke: 0.5px var(--bg-color, #fff))) {
   .card__label {
     text-shadow: none;
-    -webkit-text-stroke: 0.5px var(--bg-color);
-    text-stroke: 0.5px var(--bg-color);
+    -webkit-text-stroke: 0.5px var(--bg-color, #fff);
+    text-stroke: 0.5px var(--bg-color, #fff);
   }
 }
 
@@ -393,7 +398,11 @@
   .header {
     justify-items: center;
     align-content: center;
-    min-block-size: 65.7vh;
+  }
+
+  .card__picture-label {
+    padding-inline-end: 25px;
+    padding-block-start: 25px;
   }
 
   .save__button {
